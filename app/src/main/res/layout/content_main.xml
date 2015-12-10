@@ -59,4 +59,15 @@
         android:layout_below="@+id/textFuelUsed"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0.0"
+        android:id="@+id/txtResult"
+        android:layout_below="@+id/btnCalculateEfficiency"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:gravity="center" />
 </RelativeLayout>
