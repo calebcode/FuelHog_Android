@@ -8,13 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     // variables for user input
     private EditText distanceTraveled;
     private EditText fuelUsed;
+    private Button calculateEfficiency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,16 @@ public class MainActivity extends AppCompatActivity {
         // hook up layout fields with class variables
         distanceTraveled = (EditText) findViewById(R.id.editDistanceTraveled);
         fuelUsed = (EditText) findViewById(R.id.editFuelUsed);
+        calculateEfficiency = (Button) findViewById(R.id.btnCalculateEfficiency);
+
+        calculateEfficiency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Congratulations, you clicked the button...", Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
