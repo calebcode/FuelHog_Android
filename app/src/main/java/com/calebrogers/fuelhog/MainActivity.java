@@ -1,8 +1,6 @@
 package com.calebrogers.fuelhog;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -10,7 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText distanceTraveled;
     private EditText fuelUsed;
     private Button calculateEfficiency;
+    private TextView resultView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,28 +28,36 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         // hook up layout fields with class variables
         distanceTraveled = (EditText) findViewById(R.id.editDistanceTraveled);
         fuelUsed = (EditText) findViewById(R.id.editFuelUsed);
         calculateEfficiency = (Button) findViewById(R.id.btnCalculateEfficiency);
+        resultView = (TextView) findViewById(R.id.txtResult);
 
         calculateEfficiency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Congratulations, you clicked the button...", Toast.LENGTH_LONG).show();
+                if(distanceTraveled.getText().length() > 0 && fuelUsed.getText().length() > 0) {
+                    double distanceInput = Double.parseDouble(distanceTraveled.getText().toString());
+                    double fuelUsedInput = Double.parseDouble(fuelUsed.getText().toString());
+                    double fuelEfficiency = distanceInput / fuelUsedInput;
+                    String fuelEfficiencyFormatted;
+
+                    // format the decmial points
+                    DecimalFormat twoDecimalPlaces = new DecimalFormat("0.00");
+                    fuelEfficiencyFormatted = twoDecimalPlaces.format(fuelEfficiency);
+
+                    resultView.setText(fuelEfficiencyFormatted);
+                }
+                else {
+                    // display error message for user
+                    Toast.makeText(MainActivity.this, "Please enter a value into both fields.", Toast.LENGTH_LONG).show();
+                }
+
+
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
