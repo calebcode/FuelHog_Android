@@ -1,11 +1,13 @@
 package com.calebrogers.fuelhog;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
                     fuelEfficiencyFormatted = twoDecimalPlaces.format(fuelEfficiency);
 
                     resultView.setText(fuelEfficiencyFormatted);
+
+                    // hide soft keyboard for now, since it's taking up screen real estate for no reason
+                    InputMethodManager inputMgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMgr.hideSoftInputFromWindow(distanceTraveled.getWindowToken(), 0);
                 }
                 else {
                     // display error message for user
